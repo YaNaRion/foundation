@@ -38,13 +38,14 @@ func Setup(mux *http.ServeMux) *Router {
 
 	router.Mux.Handle(
 		"/assets/",
-		http.StripPrefix("/assets/", http.FileServer(http.Dir("./views/"))),
+		http.StripPrefix("/assets/", http.FileServer(http.Dir("./views/assets/"))),
 	)
 
 	router.Mux.HandleFunc("POST /count", router.handleClick)
 	router.Mux.HandleFunc("/admin", router.routeAdmin)
 	router.Mux.HandleFunc("POST /admin-connection", router.checkAdminConnection)
-	router.Mux.HandleFunc("/", router.routeHome)
+	router.Mux.HandleFunc("/home", router.routeHome)
+	router.Mux.HandleFunc("/", router.rerouteToHome)
 	return router
 }
 
@@ -62,6 +63,10 @@ type FromName struct {
 }
 
 var ErrorFrom string = "MAUVAIS NOM D'UTILISATEUR OU MDP"
+
+func (rt *Router) rerouteToHome(w http.ResponseWriter, r *http.Request) {
+	http.Redirect(w, r, "/home", http.StatusPermanentRedirect)
+}
 
 func (rt *Router) checkAdminConnection(w http.ResponseWriter, r *http.Request) {
 	var data FromName
@@ -106,6 +111,6 @@ func (rt *Router) routeAdmin(w http.ResponseWriter, r *http.Request) {
 		}
 		return
 	}
-	http.Redirect(w, r, "/", http.StatusPermanentRedirect)
+	http.Redirect(w, r, "/home", http.StatusPermanentRedirect)
 
 }
