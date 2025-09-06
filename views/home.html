@@ -1,0 +1,32 @@
+{{ block "home" . }}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Page Title</title>
+	<link rel="stylesheet" href="./assets/style.css">
+	<script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.6/dist/htmx.min.js"></script>
+	<link rel="icon" type="image/png" href="./assets/favicon-96x96.png" sizes="96x96" />
+</head>
+
+<body>
+	<div id="topnav">
+		<button hx-get="/home-content" hx-target="#content">Home</button>
+		<button hx-get="/books-content" hx-target="#content">Books</button>
+		<button hx-get="/series-content" hx-target="#content">Series</button>
+		<button hx-get="/admin-content?id=oui" hx-target="#content">admin</button>
+	</div>
+
+	<div id="content">
+		{{ template "home-content" . }}
+	</div>
+</body>
+
+</html>
+{{ end }}
+
+{{ block "home-content" . }}
+<h1> Welcome Home </h1>
+{{ end }}

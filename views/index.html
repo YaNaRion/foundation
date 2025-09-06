@@ -13,9 +13,16 @@
 </head>
 
 <body>
+	<div class="topnav">
+		<a class="active" href="#home">Home</a>
+		<a href="book">News</a>
+		<a href="serie">Contact</a>
+	</div>
+
 	<div id="count">
 		{{ template "count" . }}
 	</div>
+
 	<button id="count-button" hx-swap="innerHTML" hx-target="#count" hx-post="/count">
 		Click Me to count
 	</button>
