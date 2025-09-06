@@ -1,0 +1,39 @@
+{{ block "index" . }}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Page Title</title>
+	<link rel="stylesheet" href="./assets/style.css">
+	<script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.6/dist/htmx.min.js"></script>
+</head>
+
+<body>
+	<div id="count">
+		{{ template "count" . }}
+	</div>
+	<button id="count-button" hx-swap="innerHTML" hx-target="#count" hx-post="/count">
+		Click Me to count
+	</button>
+
+	<form hx-post="/admin-connection" hx-target="body">
+		<label for="fname">First name:</label><br>
+		<input type="text" id="fname" name="fname"><br>
+		<label for="lname">Last name:</label><br>
+		<input type="text" id="lname" name="lname">
+		<input type="submit" value="Submit">
+		{{ if .Error }}
+		<p style="color: red;">VOUS AVEZ RENTRE LE MAUVAIS UTILISATEUR OU MDP</p>
+		{{ end }}
+	</form>
+	<a type="button" href="admin"> ALLER A ADMIN</a>
+</body>
+
+</html>
+{{ end }}
+
+{{ block "count" . }}
+Count {{ .Count }}
+{{ end }}
