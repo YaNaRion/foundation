@@ -1,3 +1,7 @@
+body {
+	background-color: silver;
+}
+
 #count-button {
 	font-family: "Open Sans", sans-serif;
 	font-size: 14px;
@@ -13,8 +17,6 @@
 	user-select: none;
 	-webkit-user-select: none;
 	touch-action: manipulation;
-
-
 }
 
 #count-button:active {
@@ -28,4 +30,36 @@
 	#button-54 {
 		padding: 0.25em 0.75em;
 	}
+}
+
+/* Add a black background color to the top navigation */
+.topnav {
+	background-color: #341539;
+	overflow: hidden;
+	border-radius: 15px;
+}
+
+/* Style the links inside the navigation bar */
+
+.topnav .nav-bar {
+	float: left;
+	color: #f2f2f2;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+	font-size: 17px;
+}
+
+.topnav #admin-nav-bar {
+	float: right;
+}
+
+.topnav .nav-bar:hover {
+	background-color: #CDB450;
+	color: black;
+}
+
+.topnav .nav-bar.active {
+	background-color: #04AA6D;
+	color: white;
 }

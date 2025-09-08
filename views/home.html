@@ -12,11 +12,8 @@
 </head>
 
 <body>
-	<div id="topnav">
-		<button hx-get="/home-content" hx-target="#content">Home</button>
-		<button hx-get="/books-content" hx-target="#content">Books</button>
-		<button hx-get="/series-content" hx-target="#content">Series</button>
-		<button hx-get="/admin-content?id=oui" hx-target="#content">admin</button>
+	<div class="topnav">
+		{{ template "nav-bar" . }}
 	</div>
 
 	<div id="content">
@@ -29,4 +26,12 @@
 
 {{ block "home-content" . }}
 <h1> Welcome Home </h1>
+{{ end }}
+
+// TODO make so that the selected page stay in gold when click
+{{ block "nav-bar" . }}
+<a class="nav-bar" hx-get="/home-content" hx-target="#content" hx-push-url="/home">Home</a>
+<a class="nav-bar" hx-get="/books-content" hx-target="#content" hx-push-url="/books">Books</a>
+<a class="nav-bar" hx-get="/series-content" hx-target="#content" hx-push-url="/series">Series</a>
+<a id="admin-nav-bar" class="nav-bar" hx-get="/admin-content?id=oui" hx-target="#content" hx-push-url="admin">Admin</a>
 {{ end }}

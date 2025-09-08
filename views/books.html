@@ -1,9 +1,24 @@
 {{ block "books-content" . }}
 <h1> Welcome to books </h1>
 
-<h2> Foundation </h2>
-<h2> Foundation et Empire </h2>
+<h2> Fondation </h2>
+<p>
+	{{ .Foundation }}
+</p>
+<h2> Fondation et Empire </h2>
+<p>
+	{{ .FoundationAmdEmpire}}
+</p>
 <h2> Seconde fondation </h2>
+<p>
+	{{ .SecondeFoundation}}
+</p>
 <h2> Fondation foudroyée </h2>
+<p>
+	{{ .FoundationFoud}}
+</p>
 <h2> Terre et Fondation </h2>
+<p>
+	{{ .FoundationAndEarth}}
+</p>
 {{ end }}

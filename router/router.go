@@ -14,9 +14,11 @@ type FromName struct {
 }
 
 type Router struct {
-	Mux       *http.ServeMux
-	templates *Templates
-	count     Count
+	Mux          *http.ServeMux
+	booksRouter  *booksRouter
+	seriesRouter *seriesRouter
+	templates    *Templates
+	count        Count
 }
 
 type Count struct {
@@ -57,11 +59,18 @@ func Setup(mux *http.ServeMux) *Router {
 	// Route Home
 	router.Mux.HandleFunc("/home", router.routeHome)
 
+	// Route Home
+	router.Mux.HandleFunc("/update-nav-bar", router.updateNavBar)
+
 	// Route pour les pages
 	router.Mux.HandleFunc("/admin-content", router.routeAdmin)
 	router.Mux.HandleFunc("/home-content", router.routeHomeContent)
-	router.Mux.HandleFunc("/books-content", router.routeBooksContent)
-	router.Mux.HandleFunc("/series-content", router.routeSeriesContent)
+
+	// Route pour les books
+	router.Mux.HandleFunc("/books-content", router.booksRouter.routeBooksContent)
+
+	// Route pour les series
+	router.Mux.HandleFunc("/series-content", router.seriesRouter.routeSeriesContent)
 
 	// Route par defaut
 	router.Mux.HandleFunc("/", router.rerouteToHome)
@@ -71,9 +80,11 @@ func Setup(mux *http.ServeMux) *Router {
 
 func newRouter(mux *http.ServeMux) *Router {
 	return &Router{
-		Mux:       mux,
-		count:     Count{Count: 0},
-		templates: newTemplate(),
+		Mux:          mux,
+		count:        Count{Count: 0},
+		templates:    newTemplate(),
+		booksRouter:  newBooksRouter(),
+		seriesRouter: newSeriesRouter(),
 	}
 }
 
@@ -108,25 +119,9 @@ func (rt *Router) routeHome(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func (rt *Router) routeBooksContent(w http.ResponseWriter, r *http.Request) {
-	log.Println("ROUTE BOOKS")
-	err := rt.templates.Render(w, "books-content", rt.count)
-	if err != nil {
-		log.Printf("An error occurred while sending HTML file: %s \n", err)
-	}
-}
-
 func (rt *Router) routeHomeContent(w http.ResponseWriter, r *http.Request) {
 	log.Println("ROUTE Home Content")
 	err := rt.templates.Render(w, "home-content", rt.count)
-	if err != nil {
-		log.Printf("An error occurred while sending HTML file: %s \n", err)
-	}
-}
-
-func (rt *Router) routeSeriesContent(w http.ResponseWriter, r *http.Request) {
-	log.Println("ROUTE Series")
-	err := rt.templates.Render(w, "series-content", rt.count)
 	if err != nil {
 		log.Printf("An error occurred while sending HTML file: %s \n", err)
 	}
@@ -146,4 +141,31 @@ func (rt *Router) routeAdmin(w http.ResponseWriter, r *http.Request) {
 
 func (rt *Router) rerouteToHome(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/home", http.StatusPermanentRedirect)
+}
+
+type navbar struct {
+	home   string
+	books  string
+	series string
+	admin  string
+}
+
+func (rt *Router) updateNavBar(w http.ResponseWriter, r *http.Request) {
+	navbar := navbar{home: "inactive", books: "inactive", series: "incative", admin: "admin"}
+	log.Println("Update Nav Bar")
+	currentRoute := r.URL.Query().Get("current-route")
+	switch currentRoute {
+	case "home":
+		navbar.home = "active"
+	case "books":
+		navbar.books = "active"
+	case "series":
+		navbar.series = "active"
+	case "admin":
+		navbar.admin = "active"
+	}
+	err := rt.templates.Render(w, "nav-bar", navbar)
+	if err != nil {
+		log.Printf("An error occurred while sending HTML file: %s \n", err)
+	}
 }

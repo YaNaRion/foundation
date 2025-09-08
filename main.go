@@ -36,7 +36,6 @@ func NewServer(config *Config) *Server {
 	}
 }
 
-// Write a fonction that print a chrisma tree
 func Setup() *Server {
 	// log.Println("Setup DB connection")
 	var db *infra.DB
