@@ -13,13 +13,24 @@
 </head>
 
 <body>
+	<!-- Top Bar -->
+	<div class="top-bar">
+		<div class="top-bar-left">
+			<h2>Top Bar</h2>
+		</div>
+		<div class="top-bar-right">
+			<span id="current-date">Today</span>
+			<button onclick="addNewTask()">+ New Task</button>
+		</div>
+	</div>
+
 	<div class=" page">
 		<!-- Partie principale -->
 		<div class="task-contend">
 			<h1 id="task-name"></h1>
 			<div id="task-timer-wrapper">
 				<h2 id="task-time"></h2>
-				<h2></h2>
+				<h2 id="task-left-time"></h2>
 				<button onclick="StartTimer()">Démarrer le timer</button>
 			</div>
 			<p id="task-content"></p>

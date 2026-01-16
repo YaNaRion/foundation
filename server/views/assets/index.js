@@ -10,6 +10,9 @@ const ChangeLoadedTask = (taskID) => {
 	let taskTimeEle = document.getElementById("task-time");
 	taskTimeEle.textContent = "Temps de la tâche: " + task.time;
 
+	let taskTimeLeftEle = document.getElementById("task-left-time");
+	taskTimeLeftEle.textContent = "IL RESTE 60 MIN";
+
 	let taskContent = document.getElementById("task-content");
 	taskContent.textContent = task.content;
 }
@@ -23,7 +26,6 @@ const OnLoadRequest = () => {
 	fetch("http://localhost:3000/task")
 		.then(response => response.json()) // or .text()
 		.then(data => {
-			console.log(data);
 			for (let i = 0; i < data.tasks.length; i++) {
 				const task = data.tasks[i]
 				const parent = document.getElementById("task-list");

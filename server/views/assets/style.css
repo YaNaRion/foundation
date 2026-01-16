@@ -1,8 +1,44 @@
-/* .{ */
-/*       margin: 0; */
-/*       padding: 0; */
-/*       box-sizing: border-box; */
-/*     } */
+/* Top Bar Styles */
+.top-bar {
+	background-color: lightgrey;
+	padding: 10px 20px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 1px solid #ddd;
+}
+
+.top-bar-left h2 {
+	margin: 0;
+	font-size: 1.5rem;
+}
+
+.top-bar-right {
+	display: flex;
+	align-items: center;
+	gap: 15px;
+}
+
+.top-bar-right button {
+	padding: 8px 16px;
+	background-color: #007bff;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.top-bar-right button:hover {
+	background-color: #0056b3;
+}
+
+/* BODY STYLES */
+
+/* Adjust existing page layout to account for top bar */
+.page {
+	padding-top: 0;
+	/* Remove top padding since we have top bar */
+}
 
 html,
 body {
@@ -16,6 +52,8 @@ body {
 	grid-template-columns: 3fr 1fr;
 	/* 3/4 à gauche, 1/4 à droite */
 	height: 100vh;
+	padding-top: 0;
+	/* Remove top padding since we have top bar */
 }
 
 /* Partie gauche */
