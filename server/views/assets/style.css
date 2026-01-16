@@ -49,7 +49,7 @@ body {
 /* Grid principale */
 .page {
 	display: grid;
-	grid-template-columns: 3fr 1fr;
+	grid-template-columns: 5fr 1fr;
 	/* 3/4 à gauche, 1/4 à droite */
 	height: 100vh;
 	padding-top: 0;
