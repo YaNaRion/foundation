@@ -43,6 +43,11 @@ func Setup(mux *http.ServeMux) *Router {
 		http.StripPrefix("/assets/", http.FileServer(http.Dir("./views/assets/"))),
 	)
 
+	router.Mux.Handle(
+		"/js/",
+		http.StripPrefix("/js/", http.FileServer(http.Dir("./views/js/"))),
+	)
+
 	// Route par defaut
 	router.Mux.HandleFunc("/", router.routeHome)
 
