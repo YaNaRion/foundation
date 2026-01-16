@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Page Title</title>
+	<link rel="stylesheet" href="./assets/style.css">
+	<link href="./assets/index.js">
+	<link rel="icon" type="image/png" href="./assets/favicon-96x96.png" sizes="96x96" />
+	<script src='./assets/index.js'></script>
+	<link rel="stylesheet" href="assets/style.css">
+</head>
+
+<body>
+	<div class=" page">
+		<!-- Partie principale -->
+		<div class="task-contend">
+			<h1 id="task-name"></h1>
+			<div id="task-timer-wrapper">
+				<h2 id="task-time"></h2>
+				<h2></h2>
+				<button onclick="StartTimer()">Démarrer le timer</button>
+			</div>
+			<p id="task-content"></p>
+		</div>
+
+		<!-- Liste des tâches (1/4 à droite) -->
+		<div class="tasks">
+			<h2 id="task-list-name">Liste des tâches aujourdhui</h2>
+			<ul id="task-list"></ul>
+		</div>
+	</div>
+</body>
+
+</html>

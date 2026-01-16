@@ -1,0 +1,65 @@
+package router
+
+import (
+	"html/template"
+	"io"
+	"log"
+	"net/http"
+)
+
+type Router struct {
+	Mux       *http.ServeMux
+	templates *Templates
+}
+
+type Count struct {
+	Count int
+	Error *string
+}
+
+type Templates struct {
+	templates *template.Template
+}
+
+var ErrorFrom string = "MAUVAIS NOM D'UTILISATEUR OU MDP"
+
+func newTemplate() *Templates {
+	return &Templates{templates: template.Must(template.ParseGlob("views/*.html"))}
+}
+
+func (t *Templates) Render(w io.Writer, name string, data any) error {
+	return t.templates.ExecuteTemplate(w, name, data)
+}
+
+/*
+* Fonction de Setup du router pour le site web
+ */
+func Setup(mux *http.ServeMux) *Router {
+	router := newRouter(mux)
+
+	// Serve static file
+	router.Mux.Handle(
+		"/assets/",
+		http.StripPrefix("/assets/", http.FileServer(http.Dir("./views/assets/"))),
+	)
+
+	// Route par defaut
+	router.Mux.HandleFunc("/", router.routeHome)
+
+	return router
+}
+
+func newRouter(mux *http.ServeMux) *Router {
+	return &Router{
+		Mux:       mux,
+		templates: newTemplate(),
+	}
+}
+
+func (rt *Router) routeHome(w http.ResponseWriter, r *http.Request) {
+	log.Println("ROUTE HOME")
+	err := rt.templates.Render(w, "index.html", nil)
+	if err != nil {
+		log.Printf("An error occurred while sending HTML file: %s \n", err)
+	}
+}
