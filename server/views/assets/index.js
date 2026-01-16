@@ -1,14 +1,38 @@
-const selectedTask = 0;
+const selectedTaskID = 0;
+let currentTimerID;
+let currentTimeLeft;
+let selectedTask;
 let taskList;
+
+const StartTimer = () => {
+	currentTimeLeft = selectedTask.time * 60;
+	currentTimerID = setInterval(() => {
+		currentTimeLeft--;
+		let timerTextEl = document.getElementById("task-left-time");
+		timerTextEl.textContent = "Il reste " + String(Math.floor(currentTimeLeft / 60)) + " minutes et "
+			+ currentTimeLeft % 60 + " secondes à la tâche";
+	}, 1000);
+
+	// fetch("http://localhost:3000/start-current-task-timer", {
+	// 	method: "POST",
+	// 	headers: {
+	// 		"Content-Type": "application/json"
+	// 	},
+	// 	body: JSON.stringify({
+	// 		taskID: selectedTaskID
+	// 	})
+	// })
+}
 
 const ChangeLoadedTask = (taskID) => {
 	let taskH1 = document.getElementById("task-name");
 	const task = taskList[Number(taskID)];
+	selectedTask = task;
 	const formatString = "Tâche " + taskID + ": " + task.title;
 	taskH1.textContent = formatString;
 
 	let taskTimeEle = document.getElementById("task-time");
-	taskTimeEle.textContent = "Temps de la tâche: " + task.time;
+	taskTimeEle.textContent = "Temps de la tâche: " + task.time + "minutes";
 
 	let taskTimeLeftEle = document.getElementById("task-left-time");
 	taskTimeLeftEle.textContent = "IL RESTE 60 MIN";

@@ -3,6 +3,7 @@ package controller
 import "fmt"
 
 type Task struct {
+	ID           int    `json:"id"`
 	Title        string `json:"title"`
 	TimeInMinute int    `json:"time"`
 	Content      string `json:"content"`
@@ -18,6 +19,7 @@ func GenerateTemplateTask() []Task {
 	var tasks []Task
 	for i := range task_amount {
 		task := Task{
+			ID:           i,
 			Title:        fmt.Sprintf("Il faut faire des choses pour la tâche %d", i),
 			TimeInMinute: time,
 			Content:      fmt.Sprintf("Le contend de la task %d", i),
