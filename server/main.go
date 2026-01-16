@@ -40,6 +40,13 @@ func Setup() *Server {
 	// log.Println("Setup DB connection")
 	var db *infra.DB
 
+	db, _ = infra.Setup()
+	if db == nil {
+		log.Println("DB NOT CONNECTED")
+	} else {
+		log.Println("DB CONNECTED")
+	}
+
 	// Setup des routes de l'API
 	log.Println("Setup Http controller")
 	mux := http.NewServeMux()

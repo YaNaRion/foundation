@@ -24,11 +24,11 @@ type DB struct {
 }
 
 const (
-	host     = "projet3-db"
-	port     = "5432"
-	user     = "inf3995"
+	host     = "localhost"
+	port     = "5431"
+	user     = "admin"
 	password = "123"
-	dbname   = "server-db"
+	dbname   = "calendar-server-db"
 )
 
 func Setup() (*DB, error) {
