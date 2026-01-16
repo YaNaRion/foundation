@@ -19,18 +19,25 @@
 	gap: 15px;
 }
 
-.top-bar-right button {
+button {
 	padding: 8px 16px;
 	background-color: #007bff;
 	color: white;
 	border: none;
 	border-radius: 4px;
 	cursor: pointer;
+
 }
 
-.top-bar-right button:hover {
+button:hover {
 	background-color: #0056b3;
 }
+
+
+button:active {
+	transform: scale(0.97);
+}
+
 
 /* BODY STYLES */
 

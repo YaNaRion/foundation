@@ -17,11 +17,6 @@ const ChangeLoadedTask = (taskID) => {
 	taskContent.textContent = task.content;
 }
 
-const StartTimer = () => {
-
-}
-
-
 const OnLoadRequest = () => {
 	fetch("http://localhost:3000/task")
 		.then(response => response.json()) // or .text()
@@ -46,6 +41,13 @@ const OnLoadRequest = () => {
 		});
 }
 
+const OnLoad = () => {
+	day = date.day;
+	currentDateEl = document.getElementById("current-date");
+	currentDateEl.textContent = day;
+}
+
 
 
 OnLoadRequest();
+OnLoad();
