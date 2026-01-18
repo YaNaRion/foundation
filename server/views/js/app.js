@@ -1,28 +1,50 @@
 // Import modules
-import { taskManager } from './task-manager.js';
-import { ui } from './ui.js';
-import { timer } from './timer.js';
-import { newTaskPopup } from './new-task-popup.js';
+import { ControllerService } from './service/controller.js';
+import { taskComponent } from './component/task.js';
+import { taskListComponent } from './component/task-list.js';
 
 // Global state
 const state = {
-	selectedTaskID: 0,
 	currentTimerID: null,
 	currentTimeLeft: 0,
-	selectedTask: null,
-	taskList: []
+	taskList: [],
+	controllerService: new ControllerService(),
+	taskComponent: taskComponent,
+	taskListComponent: taskListComponent
 };
+
+function updateDate() {
+	const now = new Date();
+	const options = {
+		weekday: 'long',
+		year: 'numeric',
+		month: 'long',
+		day: 'numeric'
+	};
+
+	const currentDateEl = document.getElementById("current-date");
+	let dateString = now.toLocaleDateString('fr-FR', options);
+
+	// Capitalize first letter
+	dateString = dateString.charAt(0).toUpperCase() + dateString.slice(1);
+
+	currentDateEl.textContent = dateString;
+}
 
 // Initialize application
 function init() {
 	console.log('Application initializing...');
 
+	let pageElement = document.getElementById("page");
+	pageElement.appendChild(taskComponent.init());
+	pageElement.appendChild(taskListComponent.init());
+
 	// Load initial data
-	taskManager.loadTasks()
+	state.controllerService.fetchTasks()
 		.then(tasks => {
 			state.taskList = tasks;
-			ui.renderTaskList(state, tasks);
-			ui.loadTask(state, 0);
+			taskListComponent.renderTaskList(state);
+			taskComponent.loadTask(state, 0);
 		})
 		.catch(error => {
 			console.error("Error loading tasks:", error);
@@ -30,15 +52,15 @@ function init() {
 				'<li class="error">Impossible de charger les tâches. Veuillez réessayer.</li>';
 		});
 
-	// Initialize UI
-	ui.updateDate();
+	// Update date
+	updateDate();
 
 	// Setup event listeners
 	setupEventListeners();
 
 
 	// Load new-task popup: This is a quick fix
-	newTaskPopup.loadPopUp();
+	// newTaskPopup.loadPopUp();
 }
 
 function setupEventListeners() {
@@ -50,10 +72,10 @@ function setupEventListeners() {
 		document.body.style.overflow = 'hidden';
 	});
 
-	// Start timer button
-	document.getElementById('start-timer-button').addEventListener('click', () => {
-		timer.StartTimer(state);
-	});
+	// // Start timer button
+	// document.getElementById('start-timer-button').addEventListener('click', () => {
+	// 	timer.StartTimer(state);
+	// });
 
 	// Task list click events are handled in ui.js
 }

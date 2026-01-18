@@ -253,7 +253,7 @@ body {
 }
 
 /* Grid principale */
-.page {
+#page {
 	display: grid;
 	grid-template-columns: 3fr 1fr;
 	height: calc(100vh - 65px);
@@ -693,13 +693,13 @@ input[type="range"]::-webkit-slider-thumb {
 
 /* Responsive adjustments */
 @media (max-width: 1200px) {
-	.page {
+	#page {
 		grid-template-columns: 2fr 1fr;
 	}
 }
 
 @media (max-width: 768px) {
-	.page {
+	#page {
 		grid-template-columns: 1fr;
 		grid-template-rows: auto auto;
 	}

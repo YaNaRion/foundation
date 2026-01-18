@@ -20,85 +20,8 @@
 		</div>
 	</div>
 
-	<div class="page">
-		<div class="task-contend">
-			<h1 id="task-name"></h1>
-			<div id="task-timer-wrapper">
-				<h2 id="task-time"></h2>
-				<h2 id="task-left-time"></h2>
-				<button id="start-timer-button">Démarrer le timer</button>
-			</div>
-			<p id="task-content"></p>
-		</div>
-
-		<div class="tasks">
-			<h2 id="task-list-name">Liste des tâches aujourd'hui</h2>
-			<ul id="task-list"></ul>
-		</div>
-	</div>
-
-	<div id="taskModal" class="modal-overlay">
-		<div class="modal-container">
-			<div class="modal-header">
-				<h2><i class="fas fa-tasks"></i> Ajouter une nouvelle Tâche</h2>
-				<button class="close-modal" id="closeModal">&times;</button>
-			</div>
-			<form id="taskForm">
-				<div class="form-group">
-					<label for="taskName"><i class="fas fa-heading"></i> Nom de la tâche</label>
-					<div class="input-icon">
-						<i class="fas fa-pencil-alt"></i>
-						<input type="text" id="taskName" name="taskName"
-							placeholder="Entré le nom de la tâche" required>
-					</div>
-					<div class="validation-message">Champ Requis</div>
-				</div>
-
-				<div class="form-group">
-					<label for="timeEstimate"><i class="far fa-clock"></i>Temps estimé
-						(minutes)</label>
-					<div class="time-slider-container">
-						<div class="time-slider">
-							<input type="range" id="timeEstimate" name="timeEstimate"
-								min="5" max="180" step="5" value="60">
-						</div>
-						<div class="time-value">
-							<span id="timeValue">60</span> min
-						</div>
-					</div>
-					<div class="validation-message">Entre 5 et 180 minutes</div>
-				</div>
-
-				<div class="form-group">
-					<label for="dueDate"><i class="far fa-calendar-alt"></i>Date de rendue</label>
-					<div class="input-icon">
-						<i class="fas fa-calendar-day"></i>
-						<input type="date" id="dueDate" name="dueDate" required>
-					</div>
-					<div class="validation-message">Sélectionner la date de rendue</div>
-				</div>
-
-				<div class="form-group">
-					<label for="taskDescription"><i class="far fa-edit"></i> Description de la
-						tâche</label>
-					<div class="input-icon">
-						<i class="fas fa-align-left"></i>
-						<textarea id="taskDescription" name="taskDescription"
-							placeholder="Entré la description de la tâche"
-							maxlength="255"></textarea>
-					</div>
-					<div class="char-count">
-						<span id="charCount">0</span>/255 charactères
-					</div>
-					<div class="validation-message">Description</div>
-				</div>
-
-				<button type="submit" class="btn-submit">
-					<i class="fas fa-plus-circle"></i> Ajouter la tâche
-				</button>
-			</form>
-		</div>
-	</div>
+	<!-- All but the footer and top bar -->
+	<div id="page"></div>
 
 	<!-- Load JavaScript files -->
 	<script src="/js/app.js" type="module"></script>

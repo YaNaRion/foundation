@@ -44,6 +44,21 @@ func Setup(mux *http.ServeMux) *Router {
 	)
 
 	router.Mux.Handle(
+		"/js/service",
+		http.StripPrefix("/js/service", http.FileServer(http.Dir("./views/js/component"))),
+	)
+
+	router.Mux.Handle(
+		"/js/component",
+		http.StripPrefix("/js/component", http.FileServer(http.Dir("./views/js/component"))),
+	)
+
+	router.Mux.Handle(
+		"/js/class",
+		http.StripPrefix("/js/class", http.FileServer(http.Dir("./views/js/class"))),
+	)
+
+	router.Mux.Handle(
 		"/js/",
 		http.StripPrefix("/js/", http.FileServer(http.Dir("./views/js/"))),
 	)
