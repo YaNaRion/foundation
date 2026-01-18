@@ -1,5 +1,6 @@
 export const newTaskPopup = {
-	createTaskModalSimple: function() {
+	initHTML: function() {
+		console.log("Init POP UP");
 		const modalHTML = ` 
 				<div class="modal-container">
 				    <div class="modal-header">
@@ -62,7 +63,7 @@ export const newTaskPopup = {
 
 		const container = document.createElement('div');
 		container.id = "taskModal";
-		container.class = "modal-overlay";
+		container.className = "modal-overlay";
 		container.innerHTML = modalHTML;
 		document.body.appendChild(container);
 	},
@@ -74,8 +75,7 @@ export const newTaskPopup = {
 		if (this.isInitialise) {
 			return;
 		}
-
-		createTaskModalSimple();
+		this.initHTML();
 		const taskModal = document.getElementById('taskModal');
 		const closeModal = document.getElementById('closeModal');
 		const taskForm = document.getElementById('taskForm');

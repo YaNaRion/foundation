@@ -14,8 +14,6 @@ export const taskListComponent = {
 		if (parent.innerHTML != null) {
 			parent.innerHTML = null;
 		}; // Clear existing
-
-		console.log(state);
 		state.taskList.forEach((task, index) => {
 			const li = document.createElement("li");
 			li.id = index;

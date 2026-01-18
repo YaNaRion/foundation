@@ -39,7 +39,6 @@ export const taskComponent = {
 		document.getElementById("task-content").textContent = task.content;
 
 		document.getElementById('start-timer-button').addEventListener('click', () => {
-			console.log(task);
 			task.timer.StartTimer(state);
 		});
 	},

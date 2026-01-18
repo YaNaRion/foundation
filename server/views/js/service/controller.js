@@ -11,7 +11,6 @@ export class ControllerService {
 			}
 			const data = await response.json();
 			data.tasks.forEach((elem) => {
-				console.log(elem);
 				elem.timer = new Timer(elem.time);
 			});
 			return data.tasks;

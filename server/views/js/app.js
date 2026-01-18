@@ -2,6 +2,7 @@
 import { ControllerService } from './service/controller.js';
 import { taskComponent } from './component/task.js';
 import { taskListComponent } from './component/task-list.js';
+import { topBar } from './component/top-bar.js';
 
 // Global state
 const state = {
@@ -35,9 +36,12 @@ function updateDate() {
 function init() {
 	console.log('Application initializing...');
 
+	// Initialise Body
 	let pageElement = document.getElementById("page");
 	pageElement.appendChild(taskComponent.init());
 	pageElement.appendChild(taskListComponent.init());
+
+	topBar.init();
 
 	// Load initial data
 	state.controllerService.fetchTasks()
@@ -64,20 +68,6 @@ function init() {
 }
 
 function setupEventListeners() {
-	// New task button
-	document.getElementById('new-task-button').addEventListener('click', () => {
-		console.log("DANS CLICK");
-		// newTaskPopup.loadPopUp();
-		taskModal.style.display = 'flex';
-		document.body.style.overflow = 'hidden';
-	});
-
-	// // Start timer button
-	// document.getElementById('start-timer-button').addEventListener('click', () => {
-	// 	timer.StartTimer(state);
-	// });
-
-	// Task list click events are handled in ui.js
 }
 
 // Export state for other modules
