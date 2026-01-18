@@ -2,6 +2,7 @@
 import { taskManager } from './task-manager.js';
 import { ui } from './ui.js';
 import { timer } from './timer.js';
+import { newTaskPopup } from './new-task-popup.js';
 
 // Global state
 const state = {
@@ -34,12 +35,19 @@ function init() {
 
 	// Setup event listeners
 	setupEventListeners();
+
+
+	// Load new-task popup: This is a quick fix
+	newTaskPopup.loadPopUp();
 }
 
 function setupEventListeners() {
 	// New task button
 	document.getElementById('new-task-button').addEventListener('click', () => {
-		alert('Fonctionnalité "Nouvelle tâche" à implémenter');
+		console.log("DANS CLICK");
+		// newTaskPopup.loadPopUp();
+		taskModal.style.display = 'flex';
+		document.body.style.overflow = 'hidden';
 	});
 
 	// Start timer button

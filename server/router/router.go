@@ -48,6 +48,9 @@ func Setup(mux *http.ServeMux) *Router {
 		http.StripPrefix("/js/", http.FileServer(http.Dir("./views/js/"))),
 	)
 
+	// Route pour test
+	router.Mux.HandleFunc("/test", router.routeTest)
+
 	// Route par defaut
 	router.Mux.HandleFunc("/", router.routeHome)
 
@@ -64,6 +67,13 @@ func newRouter(mux *http.ServeMux) *Router {
 func (rt *Router) routeHome(w http.ResponseWriter, r *http.Request) {
 	log.Println("ROUTE HOME")
 	err := rt.templates.Render(w, "index.html", nil)
+	if err != nil {
+		log.Printf("An error occurred while sending HTML file: %s \n", err)
+	}
+}
+func (rt *Router) routeTest(w http.ResponseWriter, r *http.Request) {
+	log.Println("ROUTE Test")
+	err := rt.templates.Render(w, "test.html", nil)
 	if err != nil {
 		log.Printf("An error occurred while sending HTML file: %s \n", err)
 	}

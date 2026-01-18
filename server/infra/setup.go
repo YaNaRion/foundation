@@ -16,8 +16,6 @@ type Config struct {
 	dbname   string
 }
 
-type DBInterface interface{}
-
 type DB struct {
 	DB   *sql.DB
 	Conf *Config
@@ -35,7 +33,6 @@ func Setup() (*DB, error) {
 	config := newConfig(host, port, user, password, dbname)
 	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s "+"password=%s dbname=%s sslmode=disable",
 		config.host, config.port, config.user, config.password, config.dbname)
-	fmt.Println(psqlInfo)
 	sqldb, err := sql.Open("postgres", psqlInfo)
 
 	if err != nil {

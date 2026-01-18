@@ -1,5 +1,3 @@
-import { ui } from './ui.js';
-
 let timerInterval = null;
 let timeLeft = 0;
 
