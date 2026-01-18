@@ -1,11 +1,11 @@
 import { Timer } from "../class/timer.js";
 
-const API_URL = "http://localhost:3000/task";
+const API_URL = "http://localhost:3000";
 
 export class ControllerService {
-	async fetchTasks() {
+	async getTasks() {
 		try {
-			const response = await fetch(API_URL);
+			const response = await fetch(`${API_URL}/tasks`);
 			if (!response.ok) {
 				throw new Error(`Erreur HTTP! status: ${response.status}`);
 			}
@@ -16,6 +16,27 @@ export class ControllerService {
 			return data.tasks;
 		} catch (error) {
 			console.error("Erreur lors du chargement des tâches:", error);
+			throw error;
+		}
+	}
+
+	async postNewTask(newTask) {
+		try {
+			const response = await fetch(`${API_URL}/tasks`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify({ newTask })
+			});
+
+			if (!response.ok) {
+				throw new Error(`Erreur HTTP! status: ${response.status}`);
+			}
+
+			return await response.json();
+		} catch (error) {
+			console.error("Erreur when sending the new task to the server:", error);
 			throw error;
 		}
 	}
@@ -31,7 +52,7 @@ export class ControllerService {
 	// 		});
 	//
 	// 		if (!response.ok) {
-	// 			throw new Error(`Erreur HTTP! status: ${response.status}`);
+	// 			throw new Error(`Erreur HTTP! status: ${ response.status }`);
 	// 		}
 	//
 	// 		return await response.json();

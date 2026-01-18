@@ -10,9 +10,11 @@ export const taskComponent = {
 				<button id="start-timer-button">Démarrer le timer</button>
 			</div>
 			<p id="task-content"></p>`
-
-
 		return taskContend;
+	},
+
+	saveLastTaskTimer: function(lastTask) {
+		lastTask.timer.stopTimer();
 	},
 
 	loadTask: function(state, taskID) {
@@ -23,8 +25,10 @@ export const taskComponent = {
 			return;
 		}
 
-		state.selectedTaskID = Number(taskID);
-		state.selectedTask = task;
+		if (state.currentTask != null) {
+			this.saveLastTaskTimer(state.currentTask);
+		}
+		state.currentTask = task;
 
 		// Update UI elements
 		document.getElementById("task-name").textContent =
@@ -39,13 +43,12 @@ export const taskComponent = {
 		document.getElementById("task-content").textContent = task.content;
 
 		document.getElementById('start-timer-button').addEventListener('click', () => {
-			task.timer.StartTimer(state);
+			task.timer.startTimer((minutes, seconds) => {
+				const timerTextEl = document.getElementById("task-left-time");
+				timerTextEl.textContent =
+					`Il reste ${minutes} min et ${seconds} sec`;
+			});
 		});
 	},
 
-	updateTimerDisplay: function(minutes, seconds) {
-		const timerTextEl = document.getElementById("task-left-time");
-		timerTextEl.textContent =
-			`Il reste ${minutes} min et ${seconds} sec`;
-	}
 }

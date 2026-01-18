@@ -9,43 +9,29 @@ const state = {
 	currentTimerID: null,
 	currentTimeLeft: 0,
 	taskList: [],
+	currentTask: null,
 	controllerService: new ControllerService(),
 	taskComponent: taskComponent,
 	taskListComponent: taskListComponent
 };
 
-function updateDate() {
-	const now = new Date();
-	const options = {
-		weekday: 'long',
-		year: 'numeric',
-		month: 'long',
-		day: 'numeric'
-	};
-
-	const currentDateEl = document.getElementById("current-date");
-	let dateString = now.toLocaleDateString('fr-FR', options);
-
-	// Capitalize first letter
-	dateString = dateString.charAt(0).toUpperCase() + dateString.slice(1);
-
-	currentDateEl.textContent = dateString;
-}
 
 // Initialize application
 function init() {
 	console.log('Application initializing...');
+
+	// Initialise top bar
+	topBar.init(state);
 
 	// Initialise Body
 	let pageElement = document.getElementById("page");
 	pageElement.appendChild(taskComponent.init());
 	pageElement.appendChild(taskListComponent.init());
 
-	topBar.init();
-
 	// Load initial data
-	state.controllerService.fetchTasks()
+	state.controllerService.getTasks()
 		.then(tasks => {
+			console.log(tasks);
 			state.taskList = tasks;
 			taskListComponent.renderTaskList(state);
 			taskComponent.loadTask(state, 0);
@@ -55,19 +41,6 @@ function init() {
 			document.getElementById("task-list").innerHTML =
 				'<li class="error">Impossible de charger les tâches. Veuillez réessayer.</li>';
 		});
-
-	// Update date
-	updateDate();
-
-	// Setup event listeners
-	setupEventListeners();
-
-
-	// Load new-task popup: This is a quick fix
-	// newTaskPopup.loadPopUp();
-}
-
-function setupEventListeners() {
 }
 
 // Export state for other modules

@@ -68,13 +68,13 @@ export const newTaskPopup = {
 		document.body.appendChild(container);
 	},
 
-
 	isInitialise: false,
-	loadPopUp: function() {
+	loadPopUp: function(state) {
 		// This is just a safty mecanism, we do do need it if it is only call once
 		if (this.isInitialise) {
 			return;
 		}
+
 		this.initHTML();
 		const taskModal = document.getElementById('taskModal');
 		const closeModal = document.getElementById('closeModal');
@@ -119,17 +119,20 @@ export const newTaskPopup = {
 				taskDescription: document.getElementById('taskDescription').value
 			};
 
-			console.log('Task submitted:', formData);
+			try {
+				state.controllerService.postNewTask(formData);
+				console.log('Task submitted:', formData);
+				alert('Task added successfully!');
+				taskForm.reset();
+				charCount.textContent = '0';
+				timeValue.textContent = '60';
+				timeEstimate.value = '60';
 
-			alert('Task added successfully!');
-
-			taskForm.reset();
-			charCount.textContent = '0';
-			timeValue.textContent = '60';
-			timeEstimate.value = '60';
-
-			taskModal.style.display = 'none';
-			document.body.style.overflow = 'auto';
+				taskModal.style.display = 'none';
+				document.body.style.overflow = 'auto';
+			} catch (error) {
+				alert("Something happen on the server, the task was not added");
+			}
 		});
 
 		document.addEventListener('keydown', function(event) {

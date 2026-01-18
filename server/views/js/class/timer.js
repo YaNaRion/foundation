@@ -4,7 +4,7 @@ export class Timer {
 		this.timeLeft = timeleft;
 	}
 
-	startTimer() {
+	startTimer(updateDisplay) {
 		// Clear any existing timer
 		if (this.timerInterval) {
 			clearInterval(this.timerInterval);
@@ -27,13 +27,8 @@ export class Timer {
 			const minutes = Math.floor(this.timeLeft / 60);
 			const seconds = this.timeLeft % 60;
 
-			ui.updateTimerDisplay(minutes, seconds);
+			updateDisplay(minutes, seconds);
 		}, 1000);
-
-		// Optional: Send to server
-		// taskManager.startTaskTimer(state.selectedTaskID)
-		//     .then(response => console.log("Timer started on server:", response))
-		//     .catch(error => console.error("Server error:", error));
 	}
 
 	stopTimer() {

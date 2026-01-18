@@ -23,7 +23,7 @@ func newController(db *infra.DB, mux *http.ServeMux) *Controller {
 
 func SetUpController(mux *http.ServeMux, db *infra.DB) *Controller {
 	controller := newController(db, mux)
-	mux.HandleFunc("GET /task/", controller.getTasks)
+	mux.HandleFunc("GET /tasks/", controller.getTasks)
 
 	return controller
 }
